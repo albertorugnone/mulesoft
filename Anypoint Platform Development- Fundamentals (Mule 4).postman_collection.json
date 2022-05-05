@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "87265d51-2ed8-4034-a801-b174afbde834",
+		"name": "Anypoint Platform Development: Fundamentals (Mule 4)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WT 1-2",
+			"item": [
+				{
+					"name": "Flights",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://training4-american-ws.cloudhub.io/api/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "Flights destination=CLE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://training4-american-ws.cloudhub.io/api/flights?destination=CLE",
+							"protocol": "http",
+							"host": [
+								"training4-american-ws",
+								"cloudhub",
+								"io"
+							],
+							"path": [
+								"api",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "destination",
+									"value": "CLE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight with ID=3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://training4-american-ws.cloudhub.io/api/flights/3?",
+							"protocol": "http",
+							"host": [
+								"training4-american-ws",
+								"cloudhub",
+								"io"
+							],
+							"path": [
+								"api",
+								"flights",
+								"3"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight with ID=3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://training4-american-ws.cloudhub.io/api/flights/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Flight with ID=3 (expected 415 - Method not allowed)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405 - Method Not Allowed\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://apdev-american-ws.cloudhub.io/api/flights/"
+					},
+					"response": []
+				},
+				{
+					"name": "New Flight",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"GQ574\",\r\n  \"price\": 399,\r\n  \"departureDate\": \"2016/12/20\",\r\n  \"origin\": \"ORD\",\r\n  \"destination\": \"SFO\",\r\n  \"emptySeats\": 200,\r\n  \"plane\": {\"type\": \"Boeing 747\", \"totalSeats\": 400}\r\n}"
+						},
+						"url": "http://training4-american-ws.cloudhub.io/api/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "New Flight (expected 400 - bad request)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 - Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"GQ574\",\r\n  \"price\": 399,\r\n  \"departureDate\": \"2016/12/20\",\r\n  \"origin\": \"ORD\",\r\n  \"destination\": \"SFO\",\r\n  \"plane\": {\"type\": \"Boeing 747\", \"totalSeats\": 400}\r\n}"
+						},
+						"url": "http://training4-american-ws.cloudhub.io/api/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "Flight with ID=3 (secured api - expected 401 - Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 - Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://training4-american-api.cloudhub.io/flights/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Flight with ID=3 (secured api)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client_id",
+								"value": "d1374b15c6864c3682ddbed2a247a826",
+								"type": "text"
+							},
+							{
+								"key": "client_secret",
+								"value": "4a87fe7e2e43488c927372AEF981F066",
+								"type": "text"
+							}
+						],
+						"url": "http://training4-american-api.cloudhub.io/flights/3"
+					},
+					"response": []
+				}
+			],
+			"description": "Implementation of WT 1-2 for traning Mulesoft Development Fundamentals. Note: there are two ulr one beginning with apidev and an other with training4 that are few difference. I mixed them to have the same results they describes in the training.\n\nNote: Get Flight with ID=3 (secured api) has a quota of 3 api calls per minute (so they says from documentation of training). This means that if you run collection with iteration of 3 the expected result should be 429 - Too Many Requests"
+		}
+	]
+}
